@@ -1,0 +1,24 @@
+<h1 class="name">Product: <%= @product.name %></h1>
+<h2 class="description">Description: <%= @product.description %></h2>
+<p class="price">Price: <%= @product.price %></p>
+<p class="inventory">Inventory: <%= @product.inventory %></p>
+<div id="doSomething"></div>
+
+<a href="#" data-id="<%= @product.id %>" class="js-more">Click Me</a>
+
+<script>
+	$(function(){
+		$(".js-more").click(function(){
+			var id = parseInt($(".js-more").attr("data-id")) + 1
+
+			$.get("/products/" + id + "/data", function(data){
+				console.log(data)
+				$(".name").text(data["name"])
+				$(".description").text(data["description"])
+				$(".price").text(data["price"])
+				$(".inventory").text(data["inventory"])
+				$('.js-more').attr('data-id', data["id"])
+			})
+		})
+	})
+</script>
